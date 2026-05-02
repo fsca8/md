@@ -295,6 +295,10 @@ const options = [
     label: `默认`,
   },
   {
+    value: `local`,
+    label: `本地存储`,
+  },
+  {
     value: `github`,
     label: `GitHub`,
   },

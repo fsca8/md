@@ -145,7 +145,7 @@ async function beforeImageUpload(file: File) {
   await store.set(`imgHost`, imgHost)
 
   const config = await store.get(`${imgHost}Config`)
-  const isValidHost = imgHost === `default` || config
+  const isValidHost = imgHost === `default` || imgHost === `local` || config
   if (!isValidHost) {
     toast.error(`请先配置 ${imgHost} 图床参数`)
     return false

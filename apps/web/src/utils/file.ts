@@ -751,6 +751,15 @@ async function formCustomUpload(content: string, file: File) {
   })
 }
 
+function localImageUpload(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
+}
+
 export async function fileUpload(content: string, file: File) {
   const imgHost = await store.get(`imgHost`)
   if (!imgHost) {
@@ -783,6 +792,8 @@ export async function fileUpload(content: string, file: File) {
       return cloudinaryUpload(file)
     case `formCustom`:
       return formCustomUpload(content, file)
+    case `local`:
+      return localImageUpload(file)
     default:
       // return file.size / 1024 < 1024
       //     ? giteeUpload(content, file.name)
